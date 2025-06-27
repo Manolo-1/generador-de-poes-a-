@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas de Mario Benedetti - Ampliadas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        body { font-family: 'Lora', serif; background-color: #f8f5f2; color: #4a4a4a; }
+        .watercolor-bg { background-image: linear-gradient(120deg, #e6d7c3 0%, #f0e6d8 50%, #e8d5c8 100%); position: relative; overflow: hidden; }
+        .watercolor-bg::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cfilter id='watercolor' x='0%25' y='0%25' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='3' result='noise'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.3 0' result='colorNoise'/%3E%3CfeBlend in='SourceGraphic' in2='colorNoise' mode='multiply'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='100%25' height='100%25' filter='url(%23watercolor)' fill='%23f8f5f2' opacity='0.3'/%3E%3C/svg%3E"); opacity: 0.6; z-index: 0; }
+        .quote-container { position: relative; z-index: 1; }
+        .quote-text { font-family: 'Playfair Display', serif; line-height: 1.6; }
+        .watercolor-border { position: relative; }
+        .watercolor-border::after { content: ""; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cfilter id='watercolorBorder' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.025' numOctaves='5' result='noise'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='20' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='100%25' height='100%25' filter='url(%23watercolorBorder)' fill='none' stroke='%23d4a76a' stroke-width='3' stroke-opacity='0.6'/%3E%3C/svg%3E"); z-index: -1; border-radius: 2px; pointer-events: none; }
+        .btn-download { transition: all 0.3s ease; background-image: linear-gradient(135deg, #d4a76a 0%, #c89b6d 100%); }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(212, 167, 106, 0.4); }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div class="max-w-3xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-amber-800 mb-3">Citas de Mario Benedetti</h1>
+            <p class="text-lg text-amber-700 italic">Poesía y cuentos para cada día</p>
+        </header>
+        <div id="quote-card" class="watercolor-bg rounded-lg p-8 md:p-12 shadow-lg mb-8 watercolor-border">
+            <div class="quote-container">
+                <p class="quote-text text-xl md:text-2xl mb-6 text-amber-900" id="quote"></p>
+                <p class="text-right text-lg font-semibold text-amber-800">— Mario Benedetti</p>
+                <p class="text-right text-sm italic text-amber-700 mt-1" id="source"></p>
+            </div>
+        </div>
+        <div class="flex justify-between items-center">
+            <button id="new-quote" class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-6 rounded-md transition-colors shadow-md">Nueva cita</button>
+            <button id="download-btn" class="btn-download text-white py-2 px-6 rounded-md shadow-md flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Descargar PNG
+            </button>
+        </div>
+        <footer class="mt-12 text-center text-amber-700 text-sm">
+            <p>Citas seleccionadas de su vasta obra. Vuelve mañana para una nueva joya literaria.</p>
+        </footer>
+    </div>
+<script>
+    const quotes = [
+            { text: "No te rindas, por favor no cedas, aunque el frío queme...", source: "Poema 'No te rindas'" },
+            { text: "Te quiero no por quien eres, sino por quien soy cuando estoy contigo.", source: "Poema 'Te quiero'" },
+            { text: "La perfección es una pulida colección de errores.", source: "Ensayo" },
+            { text: "Después de todo, la muerte es sólo un síntoma de que hubo vida.", source: "Reflexión" },
+            { text: "Hay pocas cosas tan ensordecedoras como el silencio.", source: "Inventario/Cuento" },
+            { text: "Cuando creíamos que teníamos todas las respuestas, de pronto cambiaron todas las preguntas.", source: "Reflexión" },
+            { text: "La mariposa recordará por siempre que fue gusano.", source: "Reflexión" },
+            { text: "No me tientes que si nos tentamos no nos podremos olvidar.", source: "Poesía" }, // :contentReference[oaicite:1]{index=1}
+            { text: "No te quedes inmóvil al borde del camino...", source: "Poema 'No te salves'" }, // :contentReference[oaicite:2]{index=2}
+            { text: "Compañera, usted sabe, puede contar conmigo...", source: "Poema 'Hagamos un trato'" }, // :contentReference[oaicite:3]{index=3}
+            { text: "El al­ma no es un cuerpo… lo cierto es que, ignorada, el alma arde en su fuego...", source: "Poema 'El alma'" }, // :contentReference[oaicite:4]{index=4}
+            { text: "Unas veces me siento como pobre colina y otras como montaña...", source: "Poema 'Estados de ánimo'" }, // :contentReference[oaicite:5]{index=5}
+            { text: "Cuando éramos niños los viejos tenían como treinta...", source: "Poema 'Cuando éramos niños'" }, // :contentReference[oaicite:6]{index=6}
+            { text: "Sabemos que el alma como principio de la vida es una caduca concepción...", source: "Poema 'Semántica práctica'" }, // :contentReference[oaicite:7]{index=7}
+            { text: "País verde y herido comarquita de veras patria pobre...", source: "Poema 'Hombre que mira su país desde el exilio'" }, // :contentReference[oaicite:8]{index=8}
+             // Amor
+  { text: "No te rindas, por favor no cedas...", source: "Poema «No te rindas»" },
+  { text: "Te quiero no por quien eres, sino por quien soy cuando estoy contigo.", source: "Poema «Te quiero»" },
+  { text: "Compañera, usted sabe, puede contar conmigo… pero hagamos un trato…", source: "Poema «Hagamos un trato»" },
+  { text: "Sus labios eran una caricia necesaria...", source: "Reflexión" }, // :contentReference[oaicite:1]{index=1}
+  { text: "Que alguien te haga sentir cosas sin ponerte un dedo encima.", source: "Reflexión" }, // :contentReference[oaicite:2]{index=2}
+  { text: "Que te quede bien claro: donde acaba tu boca, empieza la mía.", source: "Reflexión" }, // :contentReference[oaicite:3]{index=3}
+  { text: "Cada vez que te enamores no expliques a nadie nada...", source: "Reflexión" }, // :contentReference[oaicite:4]{index=4}
+  { text: "Te quiero como para escuchar tu risa toda la noche...", source: "Reflexión" }, // :contentReference[oaicite:5]{index=5}
+  { text: "Tus ojos son mi conjuro contra la mala jornada.", source: "Reflexión" }, // :contentReference[oaicite:6]{index=6}
+  { text: "Mi estrategia es que un día cualquiera... por fin me necesites.", source: "Reflexión" }, // :contentReference[oaicite:7]{index=7}
+  { text: "Todavía creo que nuestro mejor diálogo ha sido el de las miradas.", source: "Reflexión" }, // :contentReference[oaicite:8]{index=8}
+  { text: "Te quiero para volvernos locos de risa, ebrios de nada...", source: "Reflexión" }, // :contentReference[oaicite:9]{index=9}
+  { text: "Estábamos, estamos, estaremos juntos. A pedazos, a ratos...", source: "Reflexión" }, // :contentReference[oaicite:10]{index=10}
+  { text: "Si te quiero es porque sos mi amor, mi cómplice y todo...", source: "Reflexión" }, // :contentReference[oaicite:11]{index=11}
+  { text: "Y para estar total... hay que tener plena conciencia de que uno también inspira amor.", source: "Reflexión" }, // :contentReference[oaicite:12]{index=12}
+
+  // Vida
+  { text: "Creo que la vida es un paréntesis entre dos nadas.", source: "Reflexión" }, // :contentReference[oaicite:13]{index=13}
+  { text: "Contra el optimismo no hay vacunas.", source: "Reflexión" }, // :contentReference[oaicite:14]{index=14}
+  { text: "Después de todo, la muerte es solo un síntoma de que hubo vida.", source: "Reflexión" }, // :contentReference[oaicite:15]{index=15}
+  { text: "La incertidumbre es una margarita cuyos pétalos no se terminan jamás de deshojar.", source: "Reflexión" }, // :contentReference[oaicite:16]{index=16}
+  { text: "Hay pocas cosas tan ensordecedoras como el silencio.", source: "Reflexión" }, // :contentReference[oaicite:17]{index=17}
+  { text: "Cinco minutos bastan para soñar toda una vida...", source: "Reflexión" }, // :contentReference[oaicite:18]{index=18}
+  { text: "Nunca pensé que en la felicidad hubiera tanta tristeza.", source: "Reflexión" }, // :contentReference[oaicite:19]{index=19}
+  { text: "La perfección es una pulida colección de errores.", source: "Reflexión" }, // :contentReference[oaicite:20]{index=20}
+  { text: "Un pesimista es solo un optimista bien informado.", source: "Reflexión" }, // :contentReference[oaicite:21]{index=21}
+  { text: "La melancolía no es más que una forma romántica de estar triste.", source: "Reflexión" }, // :contentReference[oaicite:22]{index=22}
+  { text: "Tengo la teoría de que cuando uno llora...", source: "Reflexión" }, // :contentReference[oaicite:23]{index=23}
+  { text: "No vayas a creer lo que te cuentan del mundo...", source: "Reflexión" }, // :contentReference[oaicite:24]{index=24}
+  { text: "Yo no sé si Dios existe, pero si existe sé que no le va a molestar mi duda.", source: "Reflexión" }, // :contentReference[oaicite:25]{index=25}
+  { text: "Si alguna vez me suicido, será en domingo.", source: "Reflexión" }, // :contentReference[oaicite:26]{index=26}
+  { text: "Somos tristeza, por eso la alegría es una hazaña.", source: "Reflexión" }, // :contentReference[oaicite:27]{index=27}
+  { text: "Todos queremos lo que no se puede...", source: "Reflexión" }, // :contentReference[oaicite:28]{index=28}
+  { text: "Acá hay tres clases de gente...", source: "Reflexión" }, // :contentReference[oaicite:29]{index=29}
+
+  // Reflexiones sociales y existenciales
+  { text: "Un abogado con cartera puede robar más que mil hombres armados.", source: "Reflexión" }, // :contentReference[oaicite:30]{index=30}
+  { text: "Algunas cosas del pasado desaparecieron pero otras abren una brecha al futuro...", source: "Reflexión" }, // :contentReference[oaicite:31]{index=31}
+  { text: "No hay que prometer nada porque las promesas son horribles ataduras...", source: "Reflexión" }, // :contentReference[oaicite:32]{index=32}
+  { text: "También siento un leve resquemor frente a lo cursi...", source: "Reflexión" }, // :contentReference[oaicite:33]{index=33}
+  { text: "El viento me encanta, sobre todo cuando ando en su contra...", source: "Reflexión" }, // :contentReference[oaicite:34]{index=34}
+  { text: "La culpa es de uno cuando no enamora...", source: "Reflexión" }, // :contentReference[oaicite:35]{index=35}
+
+  // Poesía del amor cotidiano
+  { text: "Sin prevenciones me doy vuelta y siguen...", source: "Poema 'El amor, las mujeres y la vida'" }, // :contentReference[oaicite:36]{index=36}
+  { text: "Si tu bendita soledad se funde con la mía...", source: "Poema 'El amor, las mujeres y la vida'" }, // :contentReference[oaicite:37]{index=37}
+  { text: "La culpa es de uno cuando no enamora...", source: "Poema 'El amor, las mujeres y la vida'" }, // :contentReference[oaicite:38]{index=38}
+  { text: "mírame pronto antes que en un descuido me vuelva otro", source: "Poema 'El amor, las mujeres y la vida'" }, // :contentReference[oaicite:39]{index=39}
+  { text: "Y no sé si alguna vez les ha pasado...", source: "Poema 'El amor, las mujeres y la vida'" }, // :contentReference[oaicite:40]{index=40}
+  { text: "y eso tampoco si habito en tu memoria no estaré solo", source: "Poema 'El amor, las mujeres y la vida'" }, // :contentReference[oaicite:41]{index=41}
+
+           
+  {             
+    text: "ay no me tientes que si nos tentamos no nos podremos olvidar adiós.",
+    source: "Poema «Ella que pasa»"  // :contentReference[oaicite:1]{index=1}
+  },
+  {
+    text: "Nos enseñaron desde niños cómo se forma un cuerpo sus órganos sus huesos sus funciones sus sitios pero nunca supimos de qué estaba hecha el alma… lo cierto es que, ignorada, el alma arde en su fuego… el alma no es el cuerpo pero muere con él.",
+    source: "Poema «El alma no es el cuerpo»"  // :contentReference[oaicite:2]{index=2}
+  },
+  {
+    text: "País verde y herido comarquita de veras patria pobre país ronco y vacío tumba muchacha sangre sobre sangre… país ya te armarás pedazo por pedazo pueblo mi pueblo.",
+    source: "Poema «Hombre que mira su país desde el exilio»"  // :contentReference[oaicite:3]{index=3}
+  },
+  {
+    text: "Te quiero no por quien eres, sino por quien soy cuando estoy contigo.",
+    source: "Poema «Te quiero»"  // :contentReference[oaicite:4]{index=4}
+  },
+  {
+    text: "Compañera, usted sabe, puede contar conmigo… pero hagamos un trato, yo quisiera contar con usted.",
+    source: "Poema «Hagamos un trato»"  // :contentReference[oaicite:5]{index=5}
+  },
+  {
+    text: "Nacemos tristes y morimos tristes pero en el entretiempo amamos cuerpos cuya triste belleza es un milagro.",
+    source: "Poema «Triste nº1»"  // :contentReference[oaicite:6]{index=6}
+  }
+
+        ];
+function getDailyQuote() {
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+    return quotes[dayOfYear % quotes.length];
+}
+function showRandomQuote() {
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('quote').textContent = quote.text;
+    document.getElementById('source').textContent = quote.source;
+}
+window.onload = function() {
+    const dailyQuote = getDailyQuote();
+    document.getElementById('quote').textContent = dailyQuote.text;
+    document.getElementById('source').textContent = dailyQuote.source;
+    document.getElementById('new-quote').addEventListener('click', showRandomQuote);
+    document.getElementById('download-btn').addEventListener('click', function() {
+        html2canvas(document.getElementById('quote-card'), { backgroundColor: null, scale: 2 }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'cita-benedetti.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    });
+};
+</script>
+</body>
+</html>
